@@ -1,0 +1,7 @@
+The error is found in the second print because t1 = 0, so in t3 it returns a ZeroDivisionError.
+To reach this error we have a function called "g" in which the user introduces two numbers and the function gives the result of the first number minus the other one.
+In the second function, called "f", it returns the result of the operations of 4 variables (a,b,c,d) which are grouped in other three variables(t0,t1,t2).
+t1 is defined with the function "g" of two numbers c and d.
+When c = d, t1 is zero.
+t3 is defined with the division of t0/t1, so if t1 is equal to zero then it will return a ZeroDivisionError.
+This error can be solved with a try/except.
