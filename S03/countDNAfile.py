@@ -5,4 +5,4 @@ with open("DNA.txt", "r") as f:
             if nucleotide in dna_count:
                 dna_count[nucleotide] += 1
 
-print(dna_count)
+ print(dna_count)
