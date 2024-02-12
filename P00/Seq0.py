@@ -26,7 +26,25 @@ def seq_count(seq):
     return dna_count
 #E6
 def seq_reverse(seq, n):
-    return seq[:n][::-1]
+    print("Fragment:", seq[0:n])
+    print("Reverse:", seq[:n][::-1])
+#E7
+def seq_complement(seq):
+    complement_dict = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+    complement_seq = ""
+    for base in seq:
+        complement_seq += complement_dict.get(base, base)
+    return complement_seq
+#E8
+def most_frequent_base(seq):
+    base_count = {'A': 0, 'T': 0, 'C': 0, 'G': 0}
+    for base in seq:
+        if base in base_count:
+            base_count[base] += 1
+    most_frequent = max(base_count, key=base_count.get)
+    return most_frequent
+
+
 
 
 
