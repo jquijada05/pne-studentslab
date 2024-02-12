@@ -7,4 +7,4 @@ for gene in genes:
     seq_dna = file_contents[first_line_i:]
     seq = seq_dna.replace("\n", "")
     from Seq0 import *
-    print("Gene", gene, "->  Length:", seq_len(seq))
+    print(f"\nGene {gene}:", seq_count(seq))
