@@ -1,8 +1,6 @@
 class Seq:
 
     def __init__(self, strbases):
-        # Initialize the sequence with the value
-        # passed as argument when creating the object
         bases = ["A", "C", "G", "T"]
         for i in strbases:
             if i not in bases:
@@ -18,7 +16,9 @@ class Seq:
     def len(self):
         return len(self.strbases)
 
-s1 = Seq("ACCTGC")
-s2 = Seq("Hello? Am I a valid sequence?")
-print(f"Sequence 1: {s1}")
-print(f"Sequence 2: {s2}")
+def print_seqs(seq_list):
+    for i, seq in enumerate(seq_list):
+        print(f"Sequence {i}: (Length: {seq.len()}) {seq}")
+
+seq_list = [Seq("ACT"), Seq("GATA"), Seq("CAGATA")]
+print_seqs(seq_list)
