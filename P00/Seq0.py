@@ -12,11 +12,5 @@ def seq_read_fasta(filename):
 #E3
 
 def seq_len(seq):
-        print(len(seq))
+        print("Gene", gene, "->  Length:", len(seq))
 
-#E4
-
-dna_count = {"A": 0, "C": 0, "G": 0, "T": 0}
-for nucleotide in seq_dna:
-    if nucleotide in dna_count:
-        dna_count[nucleotide] += 1
