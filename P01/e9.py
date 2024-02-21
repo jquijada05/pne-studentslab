@@ -1,29 +1,12 @@
-class Car:
-    def __init__(self, brand, speed=0):
-        self.car_brand = brand
-        self.speed = speed
+from Seq1 import Seq
 
-    def set_speed(self, speed):
-        self.speed = speed
+# -- Create a Null sequence
+s = Seq()
 
-    def get_speed(self):
-        return self.speed
+# -- Initialize the null seq with the given file in fasta format
+s.read_fasta("../sequences/U5.txt")
 
-    def get_brand_nationality(self):
-        if self.car_brand == "Renault":
-            return "France"
-        elif self.car_brand == "Ferrari":
-            return "Italy"
-
-
-mycar = Car("Renault", 30)
-print(mycar.get_speed())
-mycar.set_speed(80)
-print(mycar.get_speed())
-
-print(mycar.get_brand_nationality())
-
-yourcar = Car("Ferrari", 250)
-print(yourcar.speed)
-print(yourcar.get_speed())
-
+print(f"Sequence: (Length: {s.len()}) {s}")
+print(f"Bases: {s.count()}")
+print(f"Rev: {s.reverse()}")
+print(f"Com: {s.complement()}")

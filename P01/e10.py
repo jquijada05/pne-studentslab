@@ -1,7 +1,7 @@
 class Seq:
     def __init__(self, strbases=""):
         if strbases == "":
-            print("NULL sequence created")
+            print("NULL Seq created")
             self.strbases = "NULL"
             return
         bases = ["A", "C", "G", "T"]
@@ -11,7 +11,7 @@ class Seq:
                 print("INVALID sequence!")
                 return
         self.strbases = strbases
-        print("New sequence created!")
+        print("Sequence created!")
 
     def __str__(self):
         return self.strbases
@@ -30,10 +30,7 @@ class Seq:
         dna_count = {"A": 0, "C": 0, "G": 0, "T": 0}
         for nucleotide in self.strbases:
             if nucleotide in dna_count:
-                if self.strbases == "NULL" or self.strbases == "ERROR!!":
-                    dna_count[nucleotide] = 0
-                else:
-                    dna_count[nucleotide] += 1
+                dna_count[nucleotide] += 1
         return dna_count
 
     def reverse(self):
@@ -54,10 +51,25 @@ class Seq:
             complement_seq += complement_dict.get(base, base)
         return complement_seq
 
-    def read_fasta(self, filename):
+
+    def read_fasta(filename):
         from pathlib import Path
         file_contents = Path(filename).read_text()
         first_line_i = file_contents.find("\n")
-        seq_dna = file_contents[first_line_i:]
+        seq_dna = file_contents[first_line_i+1:]
         seq = seq_dna.replace("\n", "")
-        return seq
+
+        return Seq(seq)
+
+
+# Create a Null sequence
+print("-----| Practice 1, Exercise 9 |------")
+s = Seq()
+
+# Initialize the null seq with the given file in fasta format
+s = Seq.read_fasta("../sequences/U5.txt")
+
+print(f"Sequence: (Length: {s.len()}) {s}")
+print(f"  Bases: {s.count()}")
+print(f"  Rev:   {s.reverse()}")
+print(f"  Comp:  {s.complement()}")
