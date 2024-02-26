@@ -60,4 +60,5 @@ class Seq:
         first_line_i = file_contents.find("\n")
         seq_dna = file_contents[first_line_i:]
         seq = seq_dna.replace("\n", "")
+        self.strbases = seq
         return seq
