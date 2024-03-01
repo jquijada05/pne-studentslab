@@ -1,0 +1,2 @@
+mobile, wifi, 27-02-2024, Fuenlabrada lab, 10.1.154.175
+Lab computer, wire, 27-02-2024, Fuenlabrada lab, 212.128.255.95
