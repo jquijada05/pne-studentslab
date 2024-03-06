@@ -28,7 +28,7 @@ try:
 
         msg = rs.recv(2048).decode("utf-8")
         import termcolor
-        print("Message received:", termcolor.cprint(msg, 'green'))
+        print("Message received:"), termcolor.cprint(msg, 'green')
 
         new_msg = f"ECHO: {msg}"
         rs.send(new_msg.encode())

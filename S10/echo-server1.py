@@ -2,7 +2,7 @@ import socket
 
 # Configure the Server's IP and PORT
 PORT = 8081
-IP = "212.128.255.95" # this IP address is local, so only requests from the same machine are possible
+IP = "212.128.255.103" # this IP address is local, so only requests from the same machine are possible
 
 # -- Step 1: create the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,7 +23,7 @@ try:
 
         msg = rs.recv(2048).decode("utf-8")
         import termcolor
-        print("Message received:", termcolor.cprint(msg, 'green'))
+        print("Message received:"), termcolor.cprint(msg, 'green')
 
         new_msg = f"ECHO: {msg}"
         rs.send(new_msg.encode())
