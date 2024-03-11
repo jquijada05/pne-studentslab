@@ -3,10 +3,10 @@ import socket
 from Seq1 import Seq
 class SeqServer:
     def __init__(self):
-        self.PORT = 8081
-        self.IP = "127.0.0.1"
+        PORT = 8081
+        IP = "127.0.0.1"
         ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        ls.bind((self.IP, self.PORT))
+        ls.bind((IP, PORT))
         ls.listen()
         print("SEQ Server configured!")
         try:
@@ -18,8 +18,11 @@ class SeqServer:
                 send_bytes = str.encode(response)
                 rs.send(send_bytes)
                 rs.close()
+        except socket.error:
+            print("Problems using ip {} port {}. Is the IP correct? Do you have port permission?".format(IP, PORT))
         except KeyboardInterrupt:
-            pass
+            print("Server stopped by the user")
+
         ls.close()
 
     def return_response(self, msg):
@@ -33,6 +36,10 @@ class SeqServer:
             return self.get_comp(msg)
         elif msg.startswith("REV"):
             return self.get_rev(msg)
+        elif msg.startswith("GENE"):
+            return self.get_gene(msg)
+        else:
+            return "Invalid command"
 
     def ping_response(self):
         termcolor.cprint("PING command!", "green")
@@ -78,6 +85,16 @@ class SeqServer:
         print(rev)
         return rev
 
+    def get_gene(self, msg):
+        termcolor.cprint("GENE", "green")
+        genes = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
+        for gene in genes:
+            if gene in msg:
+                filename = "../sequences/" + gene + ".txt"
+                s = Seq()
+                s.read_fasta(filename)
+                print(s)
+                return str(s) + "\n"
 
 s = SeqServer()
 print(s)
