@@ -15,22 +15,20 @@ for i in range(0, 4):
     get_response = c.talk("GET " + str(i))
     print(f"GET {i}: {get_response}")
 
-sequence = "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA"
+sequence = c.talk("GET 0")
 
 print("\n* Testing INFO...")
 info_response = c.talk(f"INFO {sequence}")
 print(info_response)
 
 print("\n* Testing COMP...")
-comp_sequence = c.talk("GET 0")
-comp_response = c.talk(f"COMP {comp_sequence}")
-print(f"COMP {comp_sequence}")
+comp_response = c.talk(f"COMP {sequence}")
+print(f"COMP {sequence}")
 print(comp_response)
 
 print("\n* Testing REV...")
-rev_sequence = c.talk("GET 0")
-rev_response = c.talk(f"REV {rev_sequence}")
-print(f"REV {rev_sequence}")
+rev_response = c.talk(f"REV {sequence}")
+print(f"REV {sequence}")
 print(rev_response)
 
 print("\n* Testing GENE...")
