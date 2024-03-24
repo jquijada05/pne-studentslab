@@ -1,0 +1,21 @@
+1. URL: http://127.0.0.1:8080/hello
+Which is the request line?
+  - The request line is "GET /hello HTTP/1.1".
+Which is the resource that the client is asking for? (the path)
+  - The client is asking for the resource "/hello".
+
+2. URL: http://127.0.0.1:8080/file.html
+Which is the request line?
+  - The request line is "GET /file.html HTTP/1.1".
+Which is the resource that the client is asking for? (the path)
+  - The client is asking for the resource "/file.html".
+
+3. URL: http://127.0.0.1:8080/hi/there?name=virus&type=corona
+Which is the request line?
+  - The request line is "GET /hi/there?name=virus&type=corona HTTP/1.1".
+Which is the resource that the client is asking for? (the path)
+  - The client is asking for the resource "/hi/there?name=virus&type=corona".
+
+
+What should be the URL that we have to write in the browser for accessing the /dna/u5 resource?
+  - URL: http://127.0.0.1:8080/dna/u5
