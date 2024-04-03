@@ -24,9 +24,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # We are NOT processing the client's request
         # It is a happy server: It always returns a message saying
         # that everything is ok
-
+        url = self.requestline.split(" ")[1]
         # Message to send back to the client
-        contents = "I am the happy server! :-)"
+        if url == "/":
+            contents = "Welcome to my server"
+        else:
+            contents = "Resource not available"
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
