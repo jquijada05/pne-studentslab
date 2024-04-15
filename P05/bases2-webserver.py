@@ -30,11 +30,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = Path("./html/info/index.html").read_text()
         else:
             try:
-                contents = Path("./html/info/" + url + ".html").read_text()
+                contents = Path("./html/" + url + ".html").read_text()
             except FileNotFoundError:
                 contents = Path("./html/info/error.html").read_text()
 
-        body = contents
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
 
