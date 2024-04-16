@@ -7,11 +7,14 @@
   <body>
   <h1>SEQ2 server</h1>
   <p>Access to the Server</p>
-    <form action="echo" method="get">
+    <form action="ping" method="get">
       Is the server alive?
       <input type="submit" value="PING"><br>
+      <hr>
+    </form>
+    <form action="get" method="get">
       Get a Sequence. Select sequence number
-      <select name="operation">
+      <select name="n">
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -19,6 +22,32 @@
         <option value="4">4</option>
       </select>
         <input type="submit" value="GET"/>
+      <hr>
+    </form>
+    <form action="gene" method="get">
+      Get a Gene. Select the name
+      <select name="gene">
+        <option value="U5">U5</option>
+        <option value="ADA">ADA</option>
+        <option value="FRAT1">FRAT1</option>
+        <option value="FXN">FXN</option>
+        <option value="RNU6_269P">RNU6_269P</option>
+      </select>
+        <input type="submit" value="GENE"/>
+      <hr>
+    </form>
+    <form action="operation" method="get">
+      Write a sequence:
+      <input type="text" name="sequence">
+      <br>
+      Select operation
+      <input type="radio" name="operation" value="Info" checked> Info
+      <input type="radio" name="operation" value="Comp"> Comp
+      <input type="radio" name="operation" value="Rev"> Rev
+      <br>
+      Perform operation:
+      <input type="submit" value="OPERATE!"><br>
+      <hr>
     </form>
   </body>
 </html>
