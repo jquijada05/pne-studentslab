@@ -18,7 +18,10 @@ def read_html_file(filename):
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inherits all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
-
+    def get_response(self, ):
+        sequences = ["TCAGTCAA", "CGATACGA", "CCAGTGCA", "TTTCAGTA", "CATGCTAG"]
+                n = sequences[int(arguments[operation][0])]
+                return n
     def do_GET(self):
         """This method is called whenever the client invokes the GET method
         in the HTTP protocol request"""
@@ -34,8 +37,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Read the index from the file
         if path == "/":
             contents = Path('html/index.html').read_text()
-        elif path == "/echo":
-            contents = read_html_file('ping.html')
+        elif len(arguments) == 0:
+            contents = read_html_file('ping.html').render(context={"todisplay": arguments})
+        elif len(arguments) == 1:
+            def get_response():
+                sequences = ["TCAGTCAA", "CGATACGA", "CCAGTGCA", "TTTCAGTA", "CATGCTAG"]
+                n = sequences[int(arguments["operation"][0])]
+                return n
+            contents = read_html_file('get.html').render(context={"todisplay": arguments["operation"][0], "sequence": get_response()})
         else:
             contents = Path('html/error.html').read_text()
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>SEQ2 server</title>
@@ -9,7 +9,16 @@
   <p>Access to the Server</p>
     <form action="echo" method="get">
       Is the server alive?
-      <input type="submit" value="PING">
+      <input type="submit" value="PING"><br>
+      Get a Sequence. Select sequence number
+      <select name="operation">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+        <input type="submit" value="GET"/>
     </form>
   </body>
 </html>
