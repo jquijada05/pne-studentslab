@@ -4,6 +4,7 @@ import termcolor
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 import jinja2 as j
+from Seq1 import Seq
 # Define the Server's port
 PORT = 8080
 
@@ -14,6 +15,14 @@ def read_html_file(filename):
     contents = Path("html/" + filename).read_text()
     contents = j.Template(contents)
     return contents
+
+def get_info(sequence):
+    info = f"Total length: {sequence.len()}<br>"
+    for base in ["A", "C", "G", "T"]:
+        count = sequence.count_base(base)
+        percentage = count / sequence.len() * 100 if sequence.len() > 0 else 0
+        info += f"{base}: {count} ({percentage}%)<br>"
+    return info
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inherits all his methods and properties
@@ -52,6 +61,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     for i in s:
                         final_seq += i
                     contents = read_html_file('gene.html').render(context={"todisplay": arguments["gene"][0], "sequence": final_seq})
+        elif path == "/operation":
+            sequence = Seq(arguments["sequence"][0])
+            if arguments["operation"][0] == "Info":
+                result = get_info(sequence)
+                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
+            elif arguments["operation"][0] == "Comp":
+                result = sequence.complement()
+                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
+            elif arguments["operation"][0] == "Rev":
+                result = sequence.reverse()
+                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
         else:
             contents = Path('html/error.html').read_text()
 
