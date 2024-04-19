@@ -65,13 +65,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             sequence = Seq(arguments["sequence"][0])
             if arguments["operation"][0] == "Info":
                 result = get_info(sequence)
-                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
             elif arguments["operation"][0] == "Comp":
                 result = sequence.complement()
-                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
             elif arguments["operation"][0] == "Rev":
                 result = sequence.reverse()
-                contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
+            contents = read_html_file('operation.html').render(context={"todisplay": sequence, "operation": arguments["operation"][0], "result": result})
         else:
             contents = Path('html/error.html').read_text()
 
