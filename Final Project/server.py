@@ -14,11 +14,10 @@ def read_html_file(filename):
     contents = Path(filename).read_text()
     contents = j.Template(contents)
     return contents
-def get_json_data(path):
+def get_json_object(object):
     Server = "rest.ensembl.org"
-    Endpoint = "/info" + path
+    Endpoint = "/info" + object
     Params = "?content-type=application/json"
-    URL = Server + Endpoint + Params
 
     conn = http.client.HTTPConnection(Server)
 
@@ -27,11 +26,12 @@ def get_json_data(path):
     except ConnectionRefusedError:
         print("ERROR! Cannot connect to the Server")
         exit()
+
     r1 = conn.getresponse()
     print(f"Response received!: {r1.status} {r1.reason}\n")
     data = r1.read().decode("utf-8")
-    person = json.loads(data)
-    return person
+    json_object = json.loads(data)
+    return json_object
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inherits all his methods and properties
@@ -53,7 +53,30 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if path == "/":
             contents = Path('index.html').read_text()
         elif path == "/limit":
-            contents = Path('limit.html')
+            person = get_json_object("/species")
+            contents = read_html_file('limit.html').render(context={"total_length": len(person['species']), "limit": arguments["limit"][0]})
+        elif path == "/karyotype":
+            try:
+                person = get_json_object("/assembly/" + arguments["specie"][0])
+                def get_karyotype():
+                    karyotype = ""
+                    for i in person['karyotype']:
+                        karyotype += i + "\n"
+                    return karyotype
+                contents = read_html_file('karyotype.html').render(context={"karyotype": get_karyotype()})
+            except KeyError:
+                contents = Path('error.html').read_text()
+        elif path == "/chromosome_length":
+            try:
+                person = get_json_object("/assembly/" + arguments["specie2"][0])
+                def get_chromosome_length():
+                    for i in person["top_level_region"]:
+                        if i["name"] == arguments["chromosome"][0]:
+                            length = i["length"]
+                            return length
+                contents = read_html_file('chromosome_length.html').render(context={"chromosome_length": get_chromosome_length()})
+            except KeyError:
+                contents = Path('error.html').read_text()
         else:
             contents = Path('error.html').read_text()
 
