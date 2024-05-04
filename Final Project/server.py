@@ -54,14 +54,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = Path('index.html').read_text()
         elif path == "/limit":
             person = get_json_object("/species")
-            contents = read_html_file('limit.html').render(context={"total_length": len(person['species']), "limit": arguments["limit"][0]})
+            def get_limit_species(number):
+                limit_species = ""
+                for i in range(0, int(number)):
+                    limit_species += "• " + person['species'][i]["display_name"] + "<br>"
+                return limit_species
+            contents = read_html_file('limit.html').render(context={"total_length": len(person['species']), "limit": arguments["limit"][0], "species": get_limit_species(arguments['limit'][0])})
         elif path == "/karyotype":
             try:
                 person = get_json_object("/assembly/" + arguments["specie"][0])
                 def get_karyotype():
                     karyotype = ""
                     for i in person['karyotype']:
-                        karyotype += i + "\n"
+                        karyotype += i + "<br>"
                     return karyotype
                 contents = read_html_file('karyotype.html').render(context={"karyotype": get_karyotype()})
             except KeyError:
