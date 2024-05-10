@@ -108,8 +108,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 person = get_json_object("/lookup/symbol/homo_sapiens/" + arguments["gene"][0])
                 gene_id = person.get("id")
                 sequence = get_json_object("/sequence/id/" + gene_id)
-                info = ""
-                info += f"Start: {person['start']}" + "<br>"
+                info = f"Start: {person['start']}" + "<br>"
                 info += f"End: {person['end']}" + "<br>"
                 info += f"Length: {len(sequence['seq'])}" + "<br>"
                 info += f"ID: {person['id']}" + "<br>"
