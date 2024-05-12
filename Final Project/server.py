@@ -130,13 +130,12 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 import requests
                 url = "https://rest.ensembl.org/overlap/region/human/" + arguments["chromo"][0] + ":" + arguments["start"][0] + "-" + arguments["end"][0] + "?feature=gene;content-type=application/json"
                 response = requests.get(url)
-                if response.status_code == 200:
-                    json_data = response.json()
-                    print(json_data)
-                    genes = ""
-                    for i in json_data:
-                        genes += json_data[i]["external_name"]
-                    contents = read_html_file('geneList.html').render(context={"Gene_list": genes})
+                json_data = response.json()
+                print(json_data)
+                genes = ""
+                for i in json_data:
+                    genes += i["external_name"]
+                contents = read_html_file('geneList.html').render(context={"gene_list": genes})
             except KeyError:
                 contents = Path('error.html').read_text()
         else:
