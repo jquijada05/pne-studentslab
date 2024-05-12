@@ -125,6 +125,20 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 contents = read_html_file('geneCalc.html').render(context={"gene": arguments["gene"][0], "calc": get_info(s)})
             except KeyError:
                 contents = Path('error.html').read_text()
+        elif path == "/geneList":
+            try:
+                import requests
+                url = "https://rest.ensembl.org/overlap/region/human/" + arguments["chromo"][0] + ":" + arguments["start"][0] + "-" + arguments["end"][0] + "?feature=gene;content-type=application/json"
+                response = requests.get(url)
+                if response.status_code == 200:
+                    json_data = response.json()
+                    print(json_data)
+                    genes = ""
+                    for i in json_data:
+                        genes += json_data[i]["external_name"]
+                    contents = read_html_file('geneList.html').render(context={"Gene_list": genes})
+            except KeyError:
+                contents = Path('error.html').read_text()
         else:
             contents = Path('error.html').read_text()
 
