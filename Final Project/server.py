@@ -3,7 +3,7 @@ import socketserver
 import termcolor
 from pathlib import Path
 import json
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, urlparse, quote
 import jinja2 as j
 from Seq1 import Seq
 
@@ -74,7 +74,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 contents = read_html_file('limit.html').render(context={"total_length": len(person['species']), "limit": arguments["limit"][0], "species": get_limit_species(arguments['limit'][0])})
         elif path == "/karyotype":
             try:
-                person = get_json_object("/info/assembly/" + arguments["species"][0])
+                person = get_json_object("/info/assembly/" + quote(arguments["species"][0].replace(" ", "%20")))
                 def get_karyotype():
                     karyotype = ""
                     for i in person['karyotype']:
@@ -134,7 +134,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 print(json_data)
                 genes = ""
                 for i in json_data:
-                    genes += i["external_name"]
+                    if "external_name" in i:
+                        genes += i["external_name"]
                 contents = read_html_file('geneList.html').render(context={"gene_list": genes})
             except KeyError:
                 contents = Path('error.html').read_text()
